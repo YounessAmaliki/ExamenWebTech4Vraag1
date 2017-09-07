@@ -3,6 +3,7 @@ package edu.ap.rd.quotes;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
@@ -10,7 +11,11 @@ import java.util.ArrayList;
 
 import javax.ws.rs.*;
 
+import org.omg.CORBA.portable.InputStream;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import redis.clients.*;
 import redis.clients.jedis.Jedis;
@@ -92,6 +97,21 @@ public class movieResource {
 			else{
 				
 				builder.append(callURL("http://www.omdbapi.com/?t=" + movie_name + "&apikey=plzBanMe"));
+				
+				//String sURL = "http://www.omdbapi.com/?t=" + movie_name + "&apikey=plzBanMe"; //just a string
+
+			    // Connect to the URL using java's native library
+			    //URL url = new URL(sURL);
+			   //HttpURLConnection request = (HttpURLConnection) url.openConnection();
+			    //request.connect();
+
+			    // Convert to a JSON object to print data
+			    //JsonParser jp = new JsonParser(); //from gson
+			    //JsonElement root = jp.parse(new InputStreamReader((InputStream) request.getContent())); //Convert the input stream to a json element
+			    //JsonObject rootobj = root.getAsJsonObject(); //May be an array, may be an object. 
+			    //zipcode = rootobj.get("zip_code").getAsString(); //just grab the zipcode;
+				
+				
 			}
 		}
 
@@ -101,17 +121,12 @@ public class movieResource {
 			
 		}
 		
-		
-				
+	
 		builder.append("</body>");
 		builder.append("</html>");
 
 		return builder.toString();
 		
-		
-
-
-
 }
 	
 	@GET
