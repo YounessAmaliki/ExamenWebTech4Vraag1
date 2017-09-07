@@ -5,33 +5,14 @@ import java.util.ArrayList;
 
 import javax.ws.rs.*;
 
-import com.google.gson.Gson;
 import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
 
 import redis.clients.*;
 import redis.clients.jedis.Jedis;
-import sun.misc.IOUtils;
-
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLConnection;
-import java.nio.charset.Charset;
-
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-
 
 @Path("/movies")
 public class movieResource {
 
-	
-	
-	
 
 	@GET
 	@Path("{name}")
@@ -83,13 +64,8 @@ public class movieResource {
 		builder.append("</html>");
 
 		return builder.toString();
-		
-
-		
 
 
-
-	
 }
 	
 	@GET
