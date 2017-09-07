@@ -91,7 +91,7 @@ public class movieResource {
 			}
 			else{
 				
-				System.out.println("\nOutput: \n" + callURL("http://www.omdbapi.com/?t=" + movie_name + "&apikey=plzBanMe"));
+				builder.append(callURL("http://www.omdbapi.com/?t=" + movie_name + "&apikey=plzBanMe"));
 			}
 		}
 
@@ -101,7 +101,7 @@ public class movieResource {
 			
 		}
 		
-		builder.append("<br><br><a href=/ExamenWebTech4Vraag1/index/>Home</a>");
+		
 				
 		builder.append("</body>");
 		builder.append("</html>");
