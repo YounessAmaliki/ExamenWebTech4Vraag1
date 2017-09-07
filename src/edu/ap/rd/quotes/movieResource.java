@@ -5,65 +5,43 @@ import java.util.ArrayList;
 
 import javax.ws.rs.*;
 
+import com.google.gson.Gson;
 import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
 
 import redis.clients.*;
 import redis.clients.jedis.Jedis;
+import sun.misc.IOUtils;
 
-@Path("/index")
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
+import java.nio.charset.Charset;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+
+@Path("/movies")
 public class movieResource {
 
 	
-	@GET
-	@Produces({ "text/html" })
-	public String getAllmovies() {
-		// Uncomment voor opvullen
-		this.fillDb(true);
-
-		Jedis jedis = JedisConnection.getInstance().getConnection();
-		StringBuilder builder = new StringBuilder();
-		String htmlString = "<html><body>";
-		
-		htmlString +="<title>movie</title>";
-		htmlString +="</head>";
-
-		htmlString +="<body>";
-		htmlString +="<ul>";
-		ArrayList<String> movieList = new ArrayList<String>();
-		
-		for (String key : jedis.keys("movie:*")) {
-				movieList.add(jedis.get(key));
-		}
-		for(String movie: movieList){
-			//System.out.println(movie);
-			String[] full_name = movie.split(" ");
-			
-			
-			if(full_name.length == 1){
-				htmlString +="<li><a href=/ExamenWebTech4Vraag1/index/"+ full_name[0]+"/actors>"+movie+"</a></li>";
-				
-			}else{
-				htmlString +="<li><a href=/ExamenWebTech4Vraag1/index/"+ full_name[0]+"%20"+full_name[1]+"/actors>"+movie+"</a></li>";
-				
-			}
-			
-			
-		}
-		htmlString +="<br><a href=/ExamenWebTech4Vraag1/index/allactors>All actors</a>";
-		htmlString +="</ul>";
-		htmlString +="</body>";
-		htmlString +="</html>";
-
-		return htmlString;	
-	}
 	
+	
+
 	@GET
-	@Path("{name}/actors")
+	@Path("{name}")
 	@Produces({ "text/html" })
 	public String getmovieactors(@PathParam("name") String movie_name) {
 		
+		
+	
 		// Uncomment voor opvullen
-		//this.fillDb(true);
+		this.fillDb(true);
 
 		Jedis jedis = JedisConnection.getInstance().getConnection();
 		StringBuilder builder = new StringBuilder();
@@ -91,27 +69,25 @@ public class movieResource {
 				
 			}
 		}
-		
 
-
-		
 		for(String quote: actorsList){
 			
 			builder.append("<li>"+quote+"</li>");
 			
 		}
 		
-		
-		
-		
-		
-		
+
 		builder.append("<br><br><a href=/ExamenWebTech4Vraag1/index/>Home</a>");
 				
 		builder.append("</body>");
 		builder.append("</html>");
 
 		return builder.toString();
+		
+
+		
+
+
 
 	
 }
